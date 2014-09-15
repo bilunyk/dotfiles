@@ -1,36 +1,26 @@
 set nocompatible               " be iMproved
 filetype off                   " required!
 
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
-let g:vundle_default_git_proto='git'
+set rtp+=~/.vim/bundle/Vundle.vim/
+call vundle#begin()
 
-Bundle 'gmarik/vundle'
+Bundle 'gmarik/Vundle.vim'
 Bundle 'tpope/vim-fugitive'
 Bundle 'kien/ctrlp.vim'
-Bundle 'sjl/gundo.vim'
-Bundle 'Valloric/YouCompleteMe'
 Bundle 'scrooloose/syntastic'
 Bundle 'altercation/vim-colors-solarized'
-Bundle 'nvie/vim-flake8'
 Bundle 'majutsushi/tagbar'
-Bundle 'tpope/vim-surround'
-Bundle 'tomtom/tcomment_vim'
-Bundle 'mileszs/ack.vim'
+Bundle 'rking/ag.vim'
+Bundle 'Valloric/YouCompleteMe'
+Bundle 'scrooloose/nerdcommenter'
 Bundle 'bling/vim-airline'
-" SnipMate related stuff
-Bundle 'MarcWeber/vim-addon-mw-utils'
-Bundle 'tomtom/tlib_vim'
-Bundle 'garbas/vim-snipmate'
-Bundle 'honza/vim-snippets'
+
+call vundle#end()
 
 " ==========================================================
 " Shortcuts
 " ==========================================================
 let mapleader=","             " change the leader to be a comma vs slash
-
-" sudo write this
-cmap W! w !sudo tee % >/dev/null
 
 " Reload Vimrc
 map <silent> <leader>V :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo 'vimrc reloaded'"<CR>
@@ -41,15 +31,8 @@ map <c-k> <c-w>k
 map <c-l> <c-w>l
 map <c-h> <c-w>h
 
-" Load the Gundo window
-map <leader>g :GundoToggle<CR>
-
 " Load the tagbar window
 nmap <leader>tt :TagbarToggle<CR>
-
-" YcmComplete settings
-let g:ycm_key_list_select_completion = ['<Enter>', '<Down>']
-nnoremap <leader>jd :YcmCompleter GoTo<CR>
 
 " ==========================================================
 " Basic Settings
@@ -73,10 +56,6 @@ set vb t_vb=
 set wildignore+=*.o,*.obj,.git,*.pyc
 set wildignore+=eggs/**
 set wildignore+=*.egg-info/**
-
-"Disable the colorcolumn when switching modes.  Make sure this is the
-"first autocmd for the filetype here
-"autocmd FileType * setlocal colorcolumn=0
 
 """ Moving Around/Editing
 set cursorline              " have a line indicate the cursor location
@@ -130,14 +109,16 @@ nnoremap <leader>q :q<CR>
 " hide matches on <leader>space
 nnoremap <leader><space> :nohlsearch<cr>
 
-" Remove trailing whitespace on <leader>S
-nnoremap <leader>S :%s/\s\+$//<cr>:let @/=''<CR>
-
-" Select the item in the list with enter
-inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-
 " Automatically add breakpoint for PDB
 nnoremap <leader>P Oimport ipdb; ipdb.set_trace()
+
+" Syntastic settings
+let g:syntastic_python_checkers = ['flake8']
+let g:syntastic_check_on_open = 1
+
+" YcmComplete settings
+let g:ycm_key_list_select_completion = ['<Enter>', '<Down>']
+nnoremap <leader>jd :YcmCompleter GoTo<CR>
 
 if exists('$TMUX')
   function! TmuxOrSplitSwitch(wincmd, tmuxdir)
@@ -163,6 +144,4 @@ else
   map <C-k> <C-w>k
   map <C-l> <C-w>l
 endif
-
-autocmd BufWritePost *.py call Flake8()
 
