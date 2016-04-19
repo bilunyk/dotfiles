@@ -11,9 +11,13 @@ Bundle 'scrooloose/syntastic'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'majutsushi/tagbar'
 Bundle 'rking/ag.vim'
-Bundle 'Valloric/YouCompleteMe'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'bling/vim-airline'
+Bundle 'corntrace/bufexplorer'
+Bundle 'Shougo/neocomplete.vim'
+" Bundle 'Shougo/neosnippet.vim'
+Bundle 'jiangmiao/auto-pairs'
+Bundle 'fatih/vim-go'
 
 call vundle#end()
 
@@ -116,9 +120,13 @@ nnoremap <leader>P Oimport ipdb; ipdb.set_trace()
 let g:syntastic_python_checkers = ['flake8']
 let g:syntastic_check_on_open = 1
 
-" YcmComplete settings
-let g:ycm_key_list_select_completion = ['<Enter>', '<Down>']
-nnoremap <leader>jd :YcmCompleter GoTo<CR>
+" Golang settings
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_interfaces = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_build_constraints = 1
 
 if exists('$TMUX')
   function! TmuxOrSplitSwitch(wincmd, tmuxdir)
